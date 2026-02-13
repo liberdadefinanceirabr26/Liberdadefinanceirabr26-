@@ -3,70 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liberdade Financeira Digital | Podcast Exclusivo</title>
+    <title>Liberdade Financeira Digital | Método 150K</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #000b14; color: white; font-family: 'Montserrat', sans-serif; }
+        body { background: #000b14; color: white; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
         .gold-gradient { background: linear-gradient(90deg, #D4AF37, #F1C40F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .bg-gold { background: linear-gradient(180deg, #D4AF37 0%, #B8860B 100%); }
-        .card-vidro { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.2); }
+        .bg-gold { background: linear-gradient(180deg, #D4AF37 0%, #B8860B 100%); transition: 0.3s; }
+        .bg-gold:hover { transform: scale(1.02); filter: brightness(1.1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        .card-glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.2); }
         .hidden { display: none; }
+        .border-gold { border: 1px solid #D4AF37; }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col items-center py-10 px-6">
+<body class="antialiased">
 
-    <div class="mb-8 text-center">
-        <span class="gold-gradient font-black text-2xl uppercase tracking-tighter">Liberdade Financeira Digital</span>
-    </div>
+    <nav class="w-full py-6 px-8 flex justify-between items-center border-b border-gray-900 bg-black/20">
+        <div class="text-xl font-black gold-gradient tracking-tighter uppercase">Liberdade Financeira Digital</div>
+        <div class="hidden md:block text-[10px] text-gray-500 font-bold uppercase tracking-widest">Acesso Exclusivo 2026</div>
+    </nav>
 
-    <div id="capture-section" class="max-w-md w-full card-vidro p-8 rounded-3xl text-center shadow-2xl">
-        <h1 class="text-2xl font-black mb-4 uppercase">Libere seu <span class="gold-gradient">Acesso Gratuito</span></h1>
-        <p class="text-gray-400 text-sm mb-6">Ouça agora o Podcast exclusivo sobre Desligamento Controlado e Tráfego Orgânico.</p>
-        
-        <form id="lead-form" class="space-y-4">
-            <input type="text" placeholder="Seu Nome completo" required class="w-full p-4 rounded-xl bg-black/50 border border-gray-700 focus:border-[#D4AF37] outline-none">
-            <input type="email" placeholder="Seu melhor e-mail" required class="w-full p-4 rounded-xl bg-black/50 border border-gray-700 focus:border-[#D4AF37] outline-none">
-            <button type="submit" class="bg-gold w-full py-4 rounded-xl text-black font-black uppercase tracking-widest hover:scale-105 transition shadow-lg">
-                Quero ouvir agora
-            </button>
-        </form>
-        <p class="text-[10px] text-gray-600 mt-4 italic">Seus dados estão seguros conosco.</p>
-    </div>
+    <section class="max-w-6xl mx-auto pt-16 pb-12 px-6 text-center">
+        <div class="inline-block px-4 py-1 rounded-full border border-gold text-[#D4AF37] text-[10px] font-bold uppercase mb-6 tracking-widest">
+            Aulas Gratuitas Liberadas
+        </div>
+        <h1 class="text-4xl md:text-7xl font-black mb-8 leading-tight">
+            ALCANCE SEUS PRIMEIROS <br> <span class="gold-gradient uppercase">R$ 150 MIL EM 90 DIAS</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+            O método definitivo baseado em <span class="text-white font-bold italic">Desligamento Controlado</span> e <span class="text-white font-bold italic">Tráfego Orgânico</span>.
+        </p>
 
-    <div id="podcast-section" class="hidden max-w-md w-full card-vidro p-8 rounded-3xl text-center shadow-2xl border-gold animate-bounce-in">
-        <div class="mb-6">
-            <div class="w-24 h-24 bg-gold mx-auto rounded-full flex items-center justify-center mb-4 shadow-xl">
-                <span class="text-4xl text-black">🎙️</span>
-            </div>
-            <h2 class="text-xl font-bold gold-gradient uppercase">Acesso Liberado!</h2>
-            <p class="text-gray-400 text-xs mt-2">Episódio: Desligamento Controlado e Tráfego Orgânico</p>
+        <div id="capture-box" class="max-w-md mx-auto card-glass p-8 rounded-3xl shadow-2xl relative z-10">
+            <h3 class="text-lg font-bold mb-6 uppercase tracking-tight">Inscreva-se para ouvir o <span class="gold-gradient">Podcast Exclusivo</span></h3>
+            <form id="lead-form" class="space-y-4">
+                <input type="text" placeholder="Seu Nome completo" required class="w-full p-4 rounded-xl bg-black border border-gray-800 focus:border-[#D4AF37] outline-none text-sm">
+                <input type="email" placeholder="Seu e-mail principal" required class="w-full p-4 rounded-xl bg-black border border-gray-800 focus:border-[#D4AF37] outline-none text-sm">
+                <button type="submit" class="bg-gold w-full py-5 rounded-xl text-black font-black uppercase text-sm tracking-widest shadow-xl">
+                    Liberar Áudio Agora
+                </button>
+            </form>
+            <p class="mt-4 text-[10px] text-gray-600 font-medium">Sua privacidade é nossa prioridade absoluta.</p>
         </div>
 
-        <audio controls class="w-full mb-8">
-            <source src="https://drive.google.com/uc?export=download&id=1Cu2MnOqP4UOKEgFyHgD3QHJ3XAqtM2bt" type="audio/mpeg">
-            Seu navegador não suporta o áudio.
-        </audio>
+        <div id="podcast-box" class="hidden max-w-md mx-auto card-glass p-8 rounded-3xl shadow-2xl border-gold animate-in fade-in zoom-in duration-500">
+            <div class="mb-6">
+                <div class="w-20 h-20 bg-gold mx-auto rounded-full flex items-center justify-center mb-4 shadow-lg">
+                    <span class="text-3xl text-black">🎙️</span>
+                </div>
+                <h3 class="text-lg font-bold gold-gradient uppercase">Acesso Confirmado!</h3>
+                <p class="text-gray-400 text-xs mt-1 italic">Episódio: O Poder do Desligamento Controlado</p>
+            </div>
+            
+            <audio id="audio-player" controls class="w-full mb-8">
+                <source src="https://drive.google.com/uc?export=download&id=1Cu2MnOqP4UOKEgFyHgD3QHJ3XAqtM2bt" type="audio/mpeg">
+                Navegador incompatível.
+            </audio>
 
-        <hr class="border-gray-800 mb-8">
+            <a href="https://go.hotmart.com/S104320910K" target="_blank" class="bg-gold block w-full py-5 rounded-xl text-black font-black uppercase text-sm tracking-widest shadow-xl">
+                Quero o Método Completo
+            </a>
+        </div>
+    </section>
 
-        <h3 class="text-sm font-bold mb-4 uppercase">Gostou do conteúdo? Dê o próximo passo:</h3>
-        <a href="https://go.hotmart.com/S104320910K" target="_blank" class="bg-gold block w-full py-4 rounded-xl text-black font-black uppercase shadow-lg hover:brightness-110">
-            Quero o Método Completo
-        </a>
-    </div>
-
-    <script>
-        document.getElementById('lead-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Aqui você poderia integrar com Mailchimp/ActiveCampaign
-            document.getElementById('capture-section').classList.add('hidden');
-            document.getElementById('podcast-section').classList.remove('hidden');
-        });
-    </script>
-
-    <footer class="mt-auto pt-10 text-gray-600 text-[10px] uppercase tracking-widest">
-        &copy; 2026 Projeto Liberdade Financeira
-    </footer>
-</body>
-</html>
+    <section class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-6 pb-20">
+        <div class="card-glass p-6 rounded-2xl border-none">
+            <p class="text-[#D4AF37] font-black text-2xl mb-2">01</p>
+            <h4 class="font-bold text-sm uppercase mb-2">Estratégia Pura</h4>
+            <p class="text-gray-500 text-xs">Aprenda a criar sistemas que trabalham para você 24h por dia.</p>
+        </div>
+        <div class="card-glass p-6 rounded-2xl border-none">
+            <p class="text-[#D4AF37] font-black text-2xl mb-2">02</p>
+            <h4 class="font-bold text-sm uppercase mb-2">Tráfego Orgânico

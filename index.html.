@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liberdade Financeira Digital | Método 150k</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-escuro: #001220;
+            --dourado: #D4AF37;
+            --dourado-brilho: #f1c40f;
+        }
+        body { 
+            background: linear-gradient(135deg, #001220 0%, #001c30 100%);
+            color: white; 
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .gold-gradient {
+            background: linear-gradient(90deg, #D4AF37, #F1C40F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .border-gold { border: 2px solid var(--dourado); }
+        .btn-premium {
+            background: linear-gradient(180deg, #D4AF37 0%, #B8860B 100%);
+            color: #000;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 15px rgba(212, 175, 55, 0.4);
+            cursor: pointer;
+        }
+        .btn-premium:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 25px var(--dourado);
+            background: var(--dourado-brilho);
+        }
+        .card-vidro {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="bg-red-600 text-white text-center py-2 text-sm font-bold uppercase tracking-tighter">
+        Atenção: Vagas limitadas para o grupo de mentoria de 90 dias
+    </div>
+
+    <nav class="p-6 text-center border-b border-gray-800">
+        <span class="text-xl font-black tracking-widest gold-gradient uppercase">Liberdade Financeira Digital</span>
+    </nav>
+
+    <section class="max-w-6xl mx-auto py-16 px-6 text-center">
+        <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight">
+            ALCANCE SEUS PRIMEIROS <br> <span class="gold-gradient uppercase">R$ 150 MIL</span>
+        </h1>
+        <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+            O método exato para construir um negócio digital lucrativo do zero, mesmo que você não tenha experiência.
+        </p>
+
+        <div class="relative max-w-4xl mx-auto mb-12 group">
+            <div class="absolute -inset-1 bg-gold rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div class="relative card-vidro rounded-xl p-2">
+                <img src="https://via.placeholder.com/1200x675/001220/D4AF37?text=LIBERDADE+FINANCEIRA+DIGITAL" alt="Projeto Liberdade Financeira" class="rounded-lg w-full shadow-2xl">
+            </div>
+        </div>
+
+        <a href="https://go.hotmart.com/S104320910K" target="_blank" class="btn-premium px-12 py-5 rounded-lg font-black text-xl md:text-2xl inline-block uppercase tracking-tighter">
+            Quero Começar Agora
+        </a>
+        
+        <p class="mt-4 text-gray-500 text-sm">Pague em até 12x no cartão ou via PIX</p>
+    </section>
+
+    <section class="py-20 bg-black/30">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center">
+            <div class="card-vidro p-8 rounded-2xl">
+                <div class="text-3xl mb-4">💰</div>
+                <h3 class="font-bold text-xl gold-gradient mb-2">Meta de 150k</h3>
+                <p class="text-gray-400 text-sm">Plano detalhado para faturar em menos de 3 meses.</p>
+            </div>
+            <div class="card-vidro p-8 rounded-2xl border-gold">
+                <div class="text-3xl mb-4">⚡</div>
+                <h3 class="font-bold text-xl gold-gradient mb-2">Acesso Imediato</h3>
+                <p class="text-gray-400 text-sm">Receba seu login assim que o pagamento for aprovado.</p>
+            </div>
+            <div class="card-vidro p-8 rounded-2xl">
+                <div class="text-3xl mb-4">🛡️</div>
+                <h3 class="font-bold text-xl gold-gradient mb-2">Garantia Total</h3>
+                <p class="text-gray-400 text-sm">7 dias para testar o método ou seu dinheiro de volta.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-600 border-t border-gray-800 mt-20">
+        <p class="mb-4">Liberdade Financeira Digital &copy; 2026</p>
+        <p class="text-xs max-w-xl mx-auto px-4 italic">
+            "Este site não faz parte do Google ou do Facebook. Os resultados variam de pessoa para pessoa e dependem da aplicação correta do método."
+        </p>
+    </footer>
+
+</body>
+</html>
+

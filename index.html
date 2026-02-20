@@ -3,134 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal A Ruptura | Hub de Liberdade Digital</title>
+    <title>Portal A Ruptura | Liberdade Digital 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00ff41; 
-            --bg: #0a0a0a;
-            --card: #1a1a1a;
-            --text: #ffffff;
-            --accent: #ff0055;
-        }
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            line-height: 1.6;
-        }
-        header {
-            padding: 3rem 1rem;
-            text-align: center;
-            border-bottom: 2px solid var(--primary);
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80');
-            background-size: cover;
-        }
-        .container { max-width: 1000px; margin: auto; padding: 2rem; }
-        
-        .daily-briefing {
-            background: var(--card);
-            border-left: 5px solid var(--primary);
-            padding: 1.5rem;
-            margin-bottom: 3rem;
+            --bg: #000000;
+            --card-bg: #0a0a0a;
+            --border: #1a1a1a;
+            --text-main: #ffffff;
+            --text-dim: #888888;
         }
 
-        /* Esteira de Produtos */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            overflow-x: hidden;
         }
-        .product-card {
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 12px;
+
+        /* Background Glow sutil */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.05) 0%, rgba(0,0,0,0) 70%);
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        .navbar {
+            padding: 1.5rem;
             text-align: center;
-            border: 1px solid #333;
-            transition: 0.4s;
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        header {
+            padding: 5rem 1rem 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        header p {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 2rem 5rem;
+        }
+
+        /* Briefing Section */
+        .briefing {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 4px;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .briefing::after {
+            content: "LIVE_DATA_2026";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 0.6rem;
+            color: #333;
+        }
+
+        /* Grid de Produtos Premium */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 3rem 2rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
+
         .product-card:hover {
             border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.1);
+            background: #0d0d0d;
         }
-        .product-card h3 { color: var(--primary); margin-top: 0; }
-        .price { font-size: 1.5rem; font-weight: bold; margin: 1rem 0; }
-        
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin: 0 0 1rem;
+        }
+
+        .product-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        /* Botões Estilo Referência */
         .btn {
-            display: inline-block;
+            display: block;
             background: var(--primary);
-            color: black;
-            padding: 0.8rem 1.5rem;
+            color: #000;
+            text-align: center;
+            padding: 1.2rem;
             text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
-        .btn:hover { background: #00cc33; }
-        .btn-secondary { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
 
-        .badge { background: var(--accent); padding: 0.2rem 0.6rem; font-size: 0.7rem; border-radius: 20px; }
+        .btn:hover {
+            filter: brightness(1.2);
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .label {
+            font-size: 0.7rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>PORTAL A RUPTURA</h1>
-    <p>Acelerando sua transição da CLT para a Economia Digital 2026</p>
-</header>
+    <nav class="navbar">System Status: Operational // Portal A Ruptura</nav>
 
-<div class="container">
-    
-    <div class="daily-briefing">
-        <h3>💡 INSIGHT DO DIA</h3>
-        <p>"A segurança da CLT é uma ilusão que custa o seu tempo. A liberdade digital é um esforço que compra a sua vida."</p>
-    </div>
+    <header>
+        <h1>LIBERDADE<br><span style="color: var(--primary);">ESTRUTURADA.</span></h1>
+        <p>A primeira escola de transição de carreira focada em soberania digital e saída estratégica da CLT em 2026.</p>
+    </header>
 
-    <h2 style="text-align: center;">🚀 ESTEIRA DE ACELERAÇÃO</h2>
-    <div class="grid">
+    <div class="container">
         
-        <div class="product-card">
-            <div>
-                <span class="badge">NÍVEL 1: FUNDAMENTOS</span>
-                <h3>E-book Liberdade Financeira</h3>
-                <p>O mapa completo para quem quer começar do zero e entender as regras do jogo digital.</p>
-            </div>
-            <div>
-                <div class="price">R$ 197,00</div>
-                <a href="https://liberdade-financeira-gfojxh.abacusai.app/vendas" class="btn">INICIAR TRANSIÇÃO</a>
-            </div>
+        <div class="briefing">
+            <span class="label">Mentalidade de Ruptura</span>
+            <p style="font-size: 1.1rem; margin: 0;">"Enquanto você trabalha para construir o império de outra pessoa, o seu patrimônio mais valioso — o tempo — está sendo liquidado a preço de custo."</p>
         </div>
 
-        <div class="product-card">
-            <div>
-                <span class="badge" style="background: #0088ff;">NÍVEL 2: EXECUÇÃO</span>
-                <h3>Profissional Digital</h3>
-                <p>Domine as ferramentas práticas e estratégias de venda direta via Hotmart.</p>
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div>
+                    <span class="label">Nível 01 / Fundamentos</span>
+                    <h3>Manual Liberdade Financeira</h3>
+                    <p>O guia de entrada para reprogramar sua mente e entender o fluxo de caixa digital.</p>
+                    <div class="price">R$ 197</div>
+                </div>
+                <a href="https://liberdade-financeira-gfojxh.abacusai.app/vendas" class="btn">Garantir Acesso</a>
             </div>
-            <div>
-                <a href="https://pay.hotmart.com/S104320910K" class="btn btn-secondary">DETALHES DO CURSO</a>
-            </div>
-        </div>
 
-        <div class="product-card">
-            <div>
-                <span class="badge" style="background: #ffd700; color: black;">NÍVEL 3: SOBERANIA</span>
-                <h3>Mestria em Infoprodutos</h3>
-                <p>Escala máxima. Aprenda a criar, validar e automatizar seu próprio império digital.</p>
+            <div class="product-card">
+                <div>
+                    <span class="label">Nível 02 / Execução</span>
+                    <h3>Profissional Digital</h3>
+                    <p>Transfira suas habilidades para o mercado digital e monetize seu conhecimento via Hotmart.</p>
+                </div>
+                <a href="https://pay.hotmart.com/S104320910K" class="btn btn-outline">Explorar Módulos</a>
             </div>
-            <div>
-                <a href="https://pay.hotmart.com/U104438092Y" class="btn btn-secondary">QUERO O PRÓXIMO NÍVEL</a>
-            </div>
-        </div>
 
+            <div class="product-card">
+                <div>
+                    <span class="label">Nível 03 / Soberania</span>
+                    <h3>Império de Infoprodutos</h3>
+                    <p>A estratégia de escala definitiva para criar ativos que trabalham enquanto você dorme.</p>
+                </div>
+                <a href="https://pay.hotmart.com/U104438092Y" class="btn btn-outline">Acessar Mestria</a>
+            </div>
+
+        </div>
     </div>
-
-</div>
 
 </body>
 </html>

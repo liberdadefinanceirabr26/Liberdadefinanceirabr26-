@@ -3,136 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal A Ruptura | Liberdade Digital 2026</title>
+    <title>Portal A Ruptura | Hub de Soberania Digital</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00ff41; 
-            --bg: #000000;
-            --card-bg: #0a0a0a;
-            --border: #1a1a1a;
-            --text-main: #ffffff;
-            --text-dim: #888888;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
-            color: var(--text-main);
+            color: var(--text);
             margin: 0;
-            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% -20%, #003310 0%, transparent 50%);
         }
 
-        /* Background Glow sutil */
-        body::before {
-            content: "";
-            position: fixed;
-            top: -10%;
-            left: 50%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.05) 0%, rgba(0,0,0,0) 70%);
-            transform: translateX(-50%);
-            z-index: -1;
-        }
+        .container { max-width: 1200px; margin: auto; padding: 2rem; }
 
-        .navbar {
-            padding: 1.5rem;
+        /* HEADER COM IMAGEM DE CAMADA */
+        .hero {
             text-align: center;
-            border-bottom: 1px solid var(--border);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            color: var(--primary);
+            padding: 6rem 1rem;
+            background: linear-gradient(to bottom, transparent, var(--bg)), 
+                        url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80'); /* Imagem Tech Cyber */
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            margin-bottom: 3rem;
         }
 
-        header {
-            padding: 5rem 1rem 3rem;
-            text-align: center;
-            max-width: 800px;
-            margin: auto;
-        }
+        .hero h1 { font-size: 4rem; font-weight: 900; margin: 0; letter-spacing: -3px; }
+        
+        /* GRID DE CAMADAS (NOTÍCIAS E TENDÊNCIAS) */
+        .section-title { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 1rem; display: block; }
 
-        header h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin: 0;
-            line-height: 1;
-            letter-spacing: -2px;
-        }
-
-        header p {
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            margin-top: 1.5rem;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 2rem 5rem;
-        }
-
-        /* Briefing Section */
-        .briefing {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            border-radius: 4px;
-            margin-bottom: 4rem;
-            position: relative;
-        }
-
-        .briefing::after {
-            content: "LIVE_DATA_2026";
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 0.6rem;
-            color: #333;
-        }
-
-        /* Grid de Produtos Premium */
-        .product-grid {
+        .radar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: 0.3s;
+        }
+
+        .glass-card:hover { border-color: var(--primary); background: rgba(0, 255, 65, 0.02); }
+
+        /* CAIXA DE ENIGMA INTERATIVO */
+        .enigma-section {
+            background: linear-gradient(45deg, #0a0a0a, #111);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+
+        .enigma-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--primary);
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+            outline: none;
+        }
+
+        /* ESTEIRA DE VENDAS */
+        .sales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 3rem 2rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        .price-tag { font-size: 2rem; font-weight: 900; color: var(--primary); margin: 1.5rem 0; }
 
-        .product-card:hover {
-            border-color: var(--primary);
-            background: #0d0d0d;
-        }
-
-        .product-card h3 {
-            font-size: 1.5rem;
-            margin: 0 0 1rem;
-        }
-
-        .product-card p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-        }
-
-        .price {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--primary);
-        }
-
-        /* Botões Estilo Referência */
         .btn {
             display: block;
             background: var(--primary);
@@ -140,85 +99,74 @@
             text-align: center;
             padding: 1.2rem;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 900;
+            border-radius: 5px;
             text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            filter: brightness(1.2);
-            transform: scale(1.02);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .label {
-            font-size: 0.7rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            display: block;
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
+            .radar-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">System Status: Operational // Portal A Ruptura</nav>
-
-    <header>
-        <h1>LIBERDADE<br><span style="color: var(--primary);">ESTRUTURADA.</span></h1>
-        <p>A primeira escola de transição de carreira focada em soberania digital e saída estratégica da CLT em 2026.</p>
+<div class="container">
+    
+    <header class="hero">
+        <span class="section-title">Acesso Concedido // 2026</span>
+        <h1>DEIXE O SISTEMA.<br><span style="color: var(--primary);">ASSUMA O COMANDO.</span></h1>
     </header>
 
-    <div class="container">
-        
-        <div class="briefing">
-            <span class="label">Mentalidade de Ruptura</span>
-            <p style="font-size: 1.1rem; margin: 0;">"Enquanto você trabalha para construir o império de outra pessoa, o seu patrimônio mais valioso — o tempo — está sendo liquidado a preço de custo."</p>
+    <span class="section-title">01. Inteligência de Mercado</span>
+    <div class="radar-grid">
+        <div class="glass-card">
+            <h3>A Morte da CLT Tradicional</h3>
+            <p>Relatórios de Janeiro de 2026 indicam que a transição para o trabalho baseado em performance e ativos digitais atingiu o ápice. Quem não cria ativos, está financiando o império de terceiros.</p>
         </div>
-
-        <div class="product-grid">
-            
-            <div class="product-card">
-                <div>
-                    <span class="label">Nível 01 / Fundamentos</span>
-                    <h3>Manual Liberdade Financeira</h3>
-                    <p>O guia de entrada para reprogramar sua mente e entender o fluxo de caixa digital.</p>
-                    <div class="price">R$ 197</div>
-                </div>
-                <a href="https://liberdade-financeira-gfojxh.abacusai.app/vendas" class="btn">Garantir Acesso</a>
-            </div>
-
-            <div class="product-card">
-                <div>
-                    <span class="label">Nível 02 / Execução</span>
-                    <h3>Profissional Digital</h3>
-                    <p>Transfira suas habilidades para o mercado digital e monetize seu conhecimento via Hotmart.</p>
-                </div>
-                <a href="https://pay.hotmart.com/S104320910K" class="btn btn-outline">Explorar Módulos</a>
-            </div>
-
-            <div class="product-card">
-                <div>
-                    <span class="label">Nível 03 / Soberania</span>
-                    <h3>Império de Infoprodutos</h3>
-                    <p>A estratégia de escala definitiva para criar ativos que trabalham enquanto você dorme.</p>
-                </div>
-                <a href="https://pay.hotmart.com/U104438092Y" class="btn btn-outline">Acessar Mestria</a>
-            </div>
-
+        <div class="glass-card">
+            <span style="color: var(--primary);">● LIVE UPDATE</span>
+            <p>IA generativa reduziu em 40% a necessidade de cargos operacionais. O foco agora é <b>Estratégia e Escala</b>.</p>
         </div>
     </div>
+
+    <div class="enigma-section">
+        <span class="section-title">02. Desafio do Sucessor</span>
+        <h2>O ENIGMA DA LIBERDADE</h2>
+        <p>"Eu multiplico seu alcance sem aumentar suas horas. Quanto mais você me cria, mais livre você fica. O que sou?"</p>
+        <input type="text" class="enigma-input" placeholder="Sua resposta...">
+        <p><small style="color: #666; margin-top: 10px; display: block;">Dica: Começa com 'I' e é a base da nossa escola.</small></p>
+    </div>
+
+    <span class="section-title">03. Escolha seu Nível de Ruptura</span>
+    <div class="sales-grid">
+        <div class="glass-card">
+            <h3>Manual Liberdade Financeira</h3>
+            <p>O GPS para sair da inércia e faturar seus primeiros R$ 10k online.</p>
+            <div class="price-tag">R$ 197</div>
+            <a href="https://liberdade-financeira-gfojxh.abacusai.app/vendas" class="btn">DESBLOQUEAR ACESSO</a>
+        </div>
+
+        <div class="glass-card">
+            <h3>Mestria Digital</h3>
+            <p>Acelerador de vendas e tráfego pago para escala real.</p>
+            <div class="price-tag" style="color: #888;">NÍVEL II</div>
+            <a href="https://pay.hotmart.com/S104320910K" class="btn" style="background: transparent; color: var(--primary); border: 1px solid var(--primary);">EXPLORAR</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Logica simples para o enigma (apenas visual para o teste)
+    const input = document.querySelector('.enigma-input');
+    input.addEventListener('change', () => {
+        if(input.value.toLowerCase().includes('infoproduto')) {
+            alert('Acesso validado. Você entende o jogo!');
+        }
+    });
+</script>
 
 </body>
 </html>

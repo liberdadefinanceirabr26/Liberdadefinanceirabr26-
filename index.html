@@ -17,7 +17,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated Background */
         .stars {
             position: fixed;
             top: 0;
@@ -40,7 +39,6 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* Gradient Text */
         .gradient-text {
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #dc2626 100%);
             -webkit-background-clip: text;
@@ -48,7 +46,6 @@
             background-clip: text;
         }
 
-        /* Card Hover Effects */
         .product-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -60,7 +57,6 @@
             box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
         }
 
-        /* Button Glow */
         .btn-glow {
             position: relative;
             overflow: hidden;
@@ -81,7 +77,6 @@
             left: 100%;
         }
 
-        /* Rocket Animation */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
@@ -91,7 +86,6 @@
             animation: float 6s ease-in-out infinite;
         }
 
-        /* Scroll Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -103,7 +97,6 @@
             transform: translateY(0);
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -117,22 +110,110 @@
             border-radius: 5px;
         }
 
-        /* Game Elements */
         .game-card {
             background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.9));
             backdrop-filter: blur(10px);
         }
 
-        .pulse-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid #fbbf24;
-            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
         }
 
-        @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: modalSlide 0.3s ease-out;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .quiz-option {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: #fbbf24;
+        }
+
+        .quiz-option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+        }
+
+        .quiz-option.wrong {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 2rem;
+            border: 2px solid transparent;
+        }
+
+        .memory-card:hover {
+            border-color: #fbbf24;
+            transform: scale(1.05);
+        }
+
+        .memory-card.flipped {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+
+        .memory-card.matched {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            animation: pulse 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .typing-correct {
+            color: #22c55e;
+        }
+
+        .typing-wrong {
+            color: #ef4444;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -154,9 +235,16 @@
                     <a href="#games" class="hover:text-yellow-400 transition-colors">Jogos</a>
                     <a href="#trends" class="hover:text-yellow-400 transition-colors">Tendências</a>
                 </div>
-                <button class="md:hidden text-white">
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-t border-white/10">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#products" class="block py-2 hover:text-yellow-400">Produtos</a>
+                <a href="#games" class="block py-2 hover:text-yellow-400">Jogos</a>
+                <a href="#trends" class="block py-2 hover:text-yellow-400">Tendências</a>
             </div>
         </div>
     </nav>
@@ -203,84 +291,118 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Product 1 -->
-                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl p-6 relative overflow-hidden group reveal">
-                    <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">MAIS VENDIDO</div>
-                    <div class="text-yellow-500 text-sm font-bold mb-2">$297</div>
-                    <h3 class="text-2xl font-bold mb-2">Liberdade Financeira Digital</h3>
-                    <p class="text-gray-400 text-sm mb-4">O Método Completo — 5 Módulos</p>
-                    <ul class="space-y-2 mb-6 text-sm text-gray-300">
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>5 Módulos + Bônus</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Áudios Completos</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Comunidade VIP</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Suporte 90 dias</li>
-                    </ul>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-yellow-500">R$197</span>
-                        <button class="btn-glow px-6 py-2 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors">ACESSO IMEDIATO</button>
+                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl overflow-hidden relative group reveal">
+                    <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">MAIS VENDIDO</div>
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://miro.medium.com/v2/resize:fit:1400/0*PC1JMUdE9TyRLUAd.png" alt="Liberdade Financeira" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-yellow-500 text-sm font-bold mb-2 line-through">$297</div>
+                        <h3 class="text-2xl font-bold mb-2">Liberdade Financeira Digital</h3>
+                        <p class="text-gray-400 text-sm mb-4">O Método Completo — 5 Módulos</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-300">
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>5 Módulos + Bônus</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Áudios Completos</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Comunidade VIP</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Suporte 90 dias</li>
+                        </ul>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-500 text-sm line-through">R$297</span>
+                                <span class="text-2xl font-bold text-yellow-500 block">R$197</span>
+                            </div>
+                            <button onclick="openCheckout('liberdade-financeira', 'Liberdade Financeira Digital', 197)" class="btn-glow px-6 py-2 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors">ACESSO IMEDIATO</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Product 2 -->
-                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl p-6 relative overflow-hidden group reveal">
-                    <div class="absolute top-0 right-0 bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">R$149,99</div>
-                    <h3 class="text-2xl font-bold mb-2 mt-4">Curso Primeiros Passos</h3>
-                    <p class="text-gray-400 text-sm mb-4">Plano de 21 dias para sua 1ª venda</p>
-                    <ul class="space-y-2 mb-6 text-sm text-gray-300">
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>3 Módulos em Áudio</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>50 Ganchos Virais</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Plano de 21 Dias</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>R$50 OFF no Completo</li>
-                    </ul>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-yellow-500">R$99,99</span>
-                        <button class="btn-glow px-6 py-2 border border-yellow-500 text-yellow-500 rounded-full font-bold hover:bg-yellow-500 hover:text-black transition-colors">DISPONÍVEL</button>
+                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl overflow-hidden relative group reveal">
+                    <div class="absolute top-0 right-0 bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">R$149,99</div>
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://www.znadostudio.com/uploads/blog/oaMbnDqC1lXVgBq0wJvCLeYJk7JoscmeIipc6SUZ.jpg" alt="Primeiros Passos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2 mt-4">Curso Primeiros Passos</h3>
+                        <p class="text-gray-400 text-sm mb-4">Plano de 21 dias para sua 1ª venda</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-300">
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>3 Módulos em Áudio</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>50 Ganchos Virais</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Plano de 21 Dias</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>R$50 OFF no Completo</li>
+                        </ul>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-500 text-sm line-through">R$149,99</span>
+                                <span class="text-2xl font-bold text-yellow-500 block">R$99,99</span>
+                            </div>
+                            <button onclick="openCheckout('primeiros-passos', 'Curso Primeiros Passos', 99.99)" class="btn-glow px-6 py-2 border border-yellow-500 text-yellow-500 rounded-full font-bold hover:bg-yellow-500 hover:text-black transition-colors">DISPONÍVEL</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Product 3 -->
-                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl p-6 relative overflow-hidden group reveal">
-                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">R$239,98</div>
-                    <h3 class="text-2xl font-bold mb-2 mt-4">Forjando um Vencedor</h3>
-                    <p class="text-gray-400 text-sm mb-4">Projeto Genesis — Edição Pai + Filho</p>
-                    <ul class="space-y-2 mb-6 text-sm text-gray-300">
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>E-book Pai — O Arquiteto</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>E-book Filho — O Código</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Base Científica</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Exercícios Práticos</li>
-                    </ul>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-yellow-500">R$179,97</span>
-                        <button class="btn-glow px-6 py-2 border border-blue-500 text-blue-400 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">ACESSO IMEDIATO</button>
+                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl overflow-hidden relative group reveal">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">R$239,98</div>
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://parentinghub.org/wp-content/uploads/2018/12/AdobeStock_205898981-1024x683.jpeg" alt="Pai e Filho" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2 mt-4">Forjando um Vencedor</h3>
+                        <p class="text-gray-400 text-sm mb-4">Projeto Genesis — Edição Pai + Filho</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-300">
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>E-book Pai — O Arquiteto</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>E-book Filho — O Código</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Base Científica</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Exercícios Práticos</li>
+                        </ul>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-500 text-sm line-through">R$239,98</span>
+                                <span class="text-2xl font-bold text-yellow-500 block">R$179,97</span>
+                            </div>
+                            <button onclick="openCheckout('forjando-vencedor', 'Forjando um Vencedor', 179.97)" class="btn-glow px-6 py-2 border border-blue-500 text-blue-400 rounded-full font-bold hover:bg-blue-500 hover:text-white transition-colors">ACESSO IMEDIATO</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Product 4 -->
-                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl p-6 relative overflow-hidden group reveal">
-                    <div class="absolute top-0 right-0 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">GRÁTIS</div>
-                    <h3 class="text-2xl font-bold mb-2 mt-4">7 Segredos para R$10k/mês</h3>
-                    <p class="text-gray-400 text-sm mb-4">E-book Gratuito — Download Imediato</p>
-                    <ul class="space-y-2 mb-6 text-sm text-gray-300">
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Download Imediato</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>7 Estratégias Comprovadas</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Leitura de 10 min</li>
-                    </ul>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-green-500">GRÁTIS</span>
-                        <button class="btn-glow px-6 py-2 bg-green-600 text-white rounded-full font-bold hover:bg-green-700 transition-colors">DISPONÍVEL</button>
+                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl overflow-hidden relative group reveal">
+                    <div class="absolute top-0 right-0 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">GRÁTIS</div>
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://m.media-amazon.com/images/I/61A46MGGlYL._AC_UF1000,1000_QL80_.jpg" alt="7 Segredos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2 mt-4">7 Segredos para R$10k/mês</h3>
+                        <p class="text-gray-400 text-sm mb-4">E-book Gratuito — Download Imediato</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-300">
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Download Imediato</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>7 Estratégias Comprovadas</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Leitura de 10 min</li>
+                        </ul>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-green-500">GRÁTIS</span>
+                            <button onclick="openLeadModal()" class="btn-glow px-6 py-2 bg-green-600 text-white rounded-full font-bold hover:bg-green-700 transition-colors">BAIXAR AGORA</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Product 5 -->
-                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl p-6 relative overflow-hidden group reveal md:col-span-2 lg:col-span-1">
-                    <h3 class="text-2xl font-bold mb-2">Fórmula Negócio Online 5.0</h3>
-                    <p class="text-gray-400 text-sm mb-4">Alex Vargas — O treinamento nº1 do Brasil</p>
-                    <ul class="space-y-2 mb-6 text-sm text-gray-300">
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Curso Completo</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Comunidade Exclusiva</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Suporte Premium</li>
-                        <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Negócio Global</li>
-                    </ul>
-                    <button class="w-full btn-glow px-6 py-3 border border-purple-500 text-purple-400 rounded-full font-bold hover:bg-purple-500 hover:text-white transition-colors">Confira</button>
+                <div class="product-card bg-gradient-to-b from-gray-900 to-black rounded-2xl overflow-hidden relative group reveal md:col-span-2 lg:col-span-1">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://static.vecteezy.com/system/resources/previews/024/114/194/non_2x/business-startup-launch-concept-startup-business-design-concept-with-rocket-laptop-flat-illustration-landing-page-template-for-web-vector.jpg" alt="Formula Negocio Online" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Fórmula Negócio Online 5.0</h3>
+                        <p class="text-gray-400 text-sm mb-4">Alex Vargas — O treinamento nº1 do Brasil</p>
+                        <ul class="space-y-2 mb-6 text-sm text-gray-300">
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Curso Completo</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Comunidade Exclusiva</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Suporte Premium</li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Negócio Global</li>
+                        </ul>
+                        <button onclick="window.open('https://formulanegocioonline.com', '_blank')" class="w-full btn-glow px-6 py-3 border border-purple-500 text-purple-400 rounded-full font-bold hover:bg-purple-500 hover:text-white transition-colors">Confira</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -294,9 +416,30 @@
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10 reveal">
             <h2 class="text-4xl font-bold mb-4">Quiz <span class="gradient-text">Rápido</span></h2>
             <p class="text-gray-400 mb-8">Teste seus conhecimentos agora</p>
-            <button onclick="startQuiz()" class="btn-glow px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full font-bold text-lg hover:shadow-lg hover:shadow-yellow-500/25 transition-all transform hover:scale-105">
-                Iniciar Quiz
-            </button>
+            
+            <div id="quiz-container" class="bg-gray-900/80 backdrop-blur rounded-2xl p-8 border border-white/10 max-w-2xl mx-auto">
+                <div id="quiz-start">
+                    <p class="text-lg mb-6">5 perguntas rápidas sobre finanças e mentalidade. Quanto você sabe?</p>
+                    <button onclick="startQuiz()" class="btn-glow px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full font-bold text-lg hover:shadow-lg hover:shadow-yellow-500/25 transition-all transform hover:scale-105">
+                        Iniciar Quiz
+                    </button>
+                </div>
+                <div id="quiz-game" class="hidden">
+                    <div class="flex justify-between mb-4 text-sm text-gray-400">
+                        <span id="quiz-progress">Pergunta 1/5</span>
+                        <span id="quiz-score">Pontos: 0</span>
+                    </div>
+                    <h3 id="quiz-question" class="text-xl font-bold mb-6"></h3>
+                    <div id="quiz-options" class="space-y-3"></div>
+                </div>
+                <div id="quiz-result" class="hidden">
+                    <div class="text-6xl mb-4" id="quiz-emoji">🎉</div>
+                    <h3 class="text-2xl font-bold mb-2">Quiz Finalizado!</h3>
+                    <p class="text-gray-400 mb-4">Você acertou <span id="final-score" class="text-yellow-500 font-bold"></span> de 5 perguntas</p>
+                    <p id="quiz-message" class="mb-6 text-lg"></p>
+                    <button onclick="restartQuiz()" class="px-6 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors">Tentar Novamente</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -309,13 +452,13 @@
                     <h2 class="text-3xl font-bold mb-6">Comece o dia com <span class="gradient-text">inspiração</span></h2>
                     <p class="text-gray-400 mb-6">Uma frase poderosa para cada dia, mais um minijogo para testar seus reflexos.</p>
                     
-                    <div class="game-card rounded-2xl p-8 border border-white/10 relative overflow-hidden">
+                    <div class="game-card rounded-2xl p-8 border border-white/10 relative overflow-hidden mb-6">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl"></div>
-                        <div id="quote-display" class="text-xl italic text-gray-300 mb-6 min-h-[80px] flex items-center">
+                        <div id="quote-display" class="text-xl italic text-gray-300 mb-6 min-h-[80px] flex items-center transition-opacity duration-300">
                             "O sucesso é a soma de pequenos esforços repetidos dia após dia."
                         </div>
                         <div class="flex justify-between items-center">
-                            <button onclick="newQuote()" class="text-yellow-500 hover:text-yellow-400 font-semibold flex items-center gap-2">
+                            <button onclick="newQuote()" class="text-yellow-500 hover:text-yellow-400 font-semibold flex items-center gap-2 transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                                 Nova Frase
                             </button>
@@ -324,14 +467,21 @@
                     </div>
 
                     <!-- Mini Reflex Game -->
-                    <div class="mt-6 game-card rounded-2xl p-6 border border-white/10">
+                    <div class="game-card rounded-2xl p-6 border border-white/10">
                         <h3 class="font-bold mb-4 flex items-center gap-2">
                             <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                             Teste de Reflexo
                         </h3>
-                        <div id="reflex-game" class="h-32 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transition-colors relative overflow-hidden" onclick="playReflexGame()">
-                            <span id="reflex-text" class="text-gray-400 font-bold">Clique quando ficar VERDE</span>
-                            <div id="reflex-result" class="hidden absolute inset-0 flex items-center justify-center bg-gray-900/90"></div>
+                        <div id="reflex-game" class="h-32 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 relative overflow-hidden select-none" onclick="playReflexGame()">
+                            <span id="reflex-text" class="text-gray-400 font-bold pointer-events-none">Clique quando ficar VERDE</span>
+                            <div id="reflex-result" class="hidden absolute inset-0 flex items-center justify-center bg-gray-900/95 flex-col">
+                                <div class="text-3xl font-bold text-white mb-1" id="reflex-time"></div>
+                                <div class="text-sm text-gray-400">Clique para jogar novamente</div>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex justify-between text-xs text-gray-500">
+                            <span>Seu recorde: <span id="reflex-record" class="text-yellow-500">--</span>ms</span>
+                            <span>Média: 250ms</span>
                         </div>
                     </div>
                 </div>
@@ -341,8 +491,8 @@
                     <h2 class="text-3xl font-bold mb-6">30 Desafios para <span class="gradient-text">Evoluir</span></h2>
                     <p class="text-gray-400 mb-6">Memória, quiz, reflexo, palavras, cores e digitação. Conquiste estrelas e desbloqueie níveis cada vez mais insanos.</p>
                     
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-colors cursor-pointer group" onclick="playMemoryGame()">
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-all cursor-pointer group" onclick="startMemoryGame()">
                             <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🧠</div>
                             <h4 class="font-bold text-sm">Memória</h4>
                             <div class="flex gap-1 mt-2">
@@ -352,9 +502,9 @@
                             </div>
                         </div>
                         
-                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-colors cursor-pointer group">
+                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-all cursor-pointer group" onclick="scrollToSection('games'); startQuiz()">
                             <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">⚡</div>
-                            <h4 class="font-bold text-sm">Reflexo</h4>
+                            <h4 class="font-bold text-sm">Quiz Rápido</h4>
                             <div class="flex gap-1 mt-2">
                                 <span class="text-yellow-500 text-xs">★</span>
                                 <span class="text-yellow-500 text-xs">★</span>
@@ -362,9 +512,9 @@
                             </div>
                         </div>
                         
-                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-colors cursor-pointer group">
+                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-all cursor-pointer group" onclick="startColorGame()">
                             <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🎯</div>
-                            <h4 class="font-bold text-sm">Quiz</h4>
+                            <h4 class="font-bold text-sm">Cores</h4>
                             <div class="flex gap-1 mt-2">
                                 <span class="text-yellow-500 text-xs">★</span>
                                 <span class="text-gray-600 text-xs">★</span>
@@ -372,9 +522,9 @@
                             </div>
                         </div>
                         
-                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-colors cursor-pointer group">
-                            <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">🎨</div>
-                            <h4 class="font-bold text-sm">Cores</h4>
+                        <div class="game-card rounded-xl p-4 border border-white/10 hover:border-yellow-500/50 transition-all cursor-pointer group" onclick="startTypingGame()">
+                            <div class="text-3xl mb-2 group-hover:scale-110 transition-transform">⌨️</div>
+                            <h4 class="font-bold text-sm">Digitação</h4>
                             <div class="flex gap-1 mt-2">
                                 <span class="text-yellow-500 text-xs">★</span>
                                 <span class="text-yellow-500 text-xs">★</span>
@@ -383,19 +533,48 @@
                         </div>
                     </div>
 
+                    <!-- Memory Game Container -->
+                    <div id="memory-game-container" class="hidden game-card rounded-xl p-4 border border-yellow-500/30">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-bold">Jogo da Memória</h4>
+                            <button onclick="closeMemoryGame()" class="text-gray-400 hover:text-white">✕</button>
+                        </div>
+                        <div id="memory-grid" class="grid grid-cols-4 gap-2"></div>
+                        <div class="mt-4 text-center text-sm text-gray-400">
+                            Encontre os pares! <span id="memory-moves">Movimentos: 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Typing Game Container -->
+                    <div id="typing-game-container" class="hidden game-card rounded-xl p-4 border border-yellow-500/30">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-bold">Teste de Digitação</h4>
+                            <button onclick="closeTypingGame()" class="text-gray-400 hover:text-white">✕</button>
+                        </div>
+                        <div id="typing-display" class="mb-4 p-4 bg-gray-800 rounded-lg text-center text-xl tracking-wider"></div>
+                        <input type="text" id="typing-input" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white text-center" placeholder="Digite aqui..." oninput="checkTyping()">
+                        <div class="mt-4 flex justify-between text-sm text-gray-400">
+                            <span>Tempo: <span id="typing-time">0</span>s</span>
+                            <span>WPM: <span id="typing-wpm">0</span></span>
+                        </div>
+                    </div>
+
                     <div class="mt-6 p-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl border border-yellow-500/20">
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-sm text-gray-400">Seu Nível Atual</p>
-                                <p class="text-2xl font-bold text-yellow-500">Nível 5</p>
+                                <p class="text-2xl font-bold text-yellow-500">Nível <span id="user-level">5</span></p>
                             </div>
                             <div class="text-right">
                                 <p class="text-sm text-gray-400">Próximo Desafio</p>
-                                <p class="text-lg font-semibold">Memória Avançada</p>
+                                <p class="text-lg font-semibold" id="next-challenge">Memória Avançada</p>
                             </div>
                         </div>
                         <div class="mt-3 h-2 bg-gray-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-gradient-to-r from-yellow-500 to-orange-500 w-3/4"></div>
+                            <div id="level-progress" class="h-full bg-gradient-to-r from-yellow-500 to-orange-500 w-3/4 transition-all duration-500"></div>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-500 text-right">
+                            <span id="xp-text">750/1000 XP</span>
                         </div>
                     </div>
                 </div>
@@ -411,11 +590,11 @@
                     <h2 class="text-4xl font-bold mb-2">Tendências em <span class="gradient-text">Alta</span></h2>
                     <p class="text-gray-400">Os assuntos que estão movendo o mundo agora.</p>
                 </div>
-                <button class="hidden md:block text-yellow-500 hover:text-yellow-400 font-semibold">Ver todas →</button>
+                <button onclick="showAllTrends()" class="hidden md:block text-yellow-500 hover:text-yellow-400 font-semibold transition-colors">Ver todas →</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="group cursor-pointer reveal">
+                <div class="group cursor-pointer reveal" onclick="openTrend('crypto')">
                     <div class="relative overflow-hidden rounded-xl mb-4 aspect-video">
                         <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&q=80" alt="Crypto" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -426,7 +605,7 @@
                     </div>
                 </div>
 
-                <div class="group cursor-pointer reveal">
+                <div class="group cursor-pointer reveal" onclick="openTrend('ai')">
                     <div class="relative overflow-hidden rounded-xl mb-4 aspect-video">
                         <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80" alt="AI" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -437,7 +616,7 @@
                     </div>
                 </div>
 
-                <div class="group cursor-pointer reveal">
+                <div class="group cursor-pointer reveal" onclick="openTrend('business')">
                     <div class="relative overflow-hidden rounded-xl mb-4 aspect-video">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Business" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -472,9 +651,9 @@
                     <span class="font-bold text-xl">NÍVEL UP BRASIL</span>
                 </div>
                 <div class="flex space-x-6 text-gray-400">
-                    <a href="#" class="hover:text-white transition-colors">Termos</a>
-                    <a href="#" class="hover:text-white transition-colors">Privacidade</a>
-                    <a href="#" class="hover:text-white transition-colors">Contato</a>
+                    <a href="#" onclick="alert('Em breve!')" class="hover:text-white transition-colors">Termos</a>
+                    <a href="#" onclick="alert('Em breve!')" class="hover:text-white transition-colors">Privacidade</a>
+                    <a href="#" onclick="alert('Em breve!')" class="hover:text-white transition-colors">Contato</a>
                 </div>
             </div>
             <div class="mt-8 text-center text-gray-600 text-sm">
@@ -482,6 +661,80 @@
             </div>
         </div>
     </footer>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeModal('checkout-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold mb-2" id="checkout-title"></h3>
+            <p class="text-gray-400 mb-6">Preencha seus dados para garantir seu acesso</p>
+            <form onsubmit="processCheckout(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Nome Completo</label>
+                        <input type="text" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-yellow-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">E-mail</label>
+                        <input type="email" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-yellow-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">WhatsApp</label>
+                        <input type="tel" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-yellow-500 focus:outline-none">
+                    </div>
+                    <div class="pt-4 border-t border-gray-700">
+                        <div class="flex justify-between mb-4">
+                            <span class="text-gray-400">Total:</span>
+                            <span class="text-2xl font-bold text-yellow-500" id="checkout-price"></span>
+                        </div>
+                        <button type="submit" class="w-full btn-glow py-3 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-lg font-bold hover:shadow-lg transition-all">
+                            Finalizar Compra
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lead Modal -->
+    <div id="lead-modal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeModal('lead-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">7 Segredos para R$10k/mês</h3>
+                <p class="text-gray-400">Digite seu e-mail para receber o download imediato</p>
+            </div>
+            <form onsubmit="processLead(event)">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Seu nome" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none">
+                    <input type="email" placeholder="Seu melhor e-mail" required class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none">
+                    <button type="submit" class="w-full py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold transition-colors">
+                        Quero Receber o E-book
+                    </button>
+                    <p class="text-xs text-gray-500 text-center">Prometemos não enviar spam. Você pode se descadastrar a qualquer momento.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Trend Modal -->
+    <div id="trend-modal" class="modal">
+        <div class="modal-content max-w-2xl">
+            <button onclick="closeModal('trend-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
+            <span class="text-xs font-bold text-yellow-500 uppercase tracking-wider mb-2 block" id="trend-category"></span>
+            <h3 class="text-2xl font-bold mb-4" id="trend-title"></h3>
+            <div class="prose prose-invert max-w-none">
+                <p class="text-gray-300 leading-relaxed" id="trend-content"></p>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-700 flex justify-between items-center">
+                <span class="text-sm text-gray-500">Publicado há 2 horas</span>
+                <button onclick="closeModal('trend-modal')" class="px-4 py-2 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors">Fechar</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Generate Stars
@@ -520,13 +773,58 @@
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Modal Functions
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Checkout Functions
+        let currentProduct = {};
+
+        function openCheckout(id, name, price) {
+            currentProduct = { id, name, price };
+            document.getElementById('checkout-title').textContent = name;
+            document.getElementById('checkout-price').textContent = 'R$' + price.toFixed(2).replace('.', ',');
+            openModal('checkout-modal');
+        }
+
+        function openLeadModal() {
+            openModal('lead-modal');
+        }
+
+        function processCheckout(e) {
+            e.preventDefault();
+            alert(`Compra simulada: ${currentProduct.name}\n\nEm um site real, isso redirecionaria para:\n- Hotmart\n- Monetizze\n- PayPal\n- ou outra plataforma de pagamento`);
+            closeModal('checkout-modal');
+        }
+
+        function processLead(e) {
+            e.preventDefault();
+            alert('E-book enviado para seu e-mail!\n\nVerifique sua caixa de entrada (e spam).');
+            closeModal('lead-modal');
+        }
+
         // Quotes System
         const quotes = [
             { text: "O sucesso é a soma de pequenos esforços repetidos dia após dia.", author: "Robert Collier" },
             { text: "Não espere por oportunidades, crie-as.", author: "George Bernard Shaw" },
             { text: "A única maneira de fazer um excelente trabalho é amar o que você faz.", author: "Steve Jobs" },
             { text: "O melhor momento para plantar uma árvore foi há 20 anos. O segundo melhor momento é agora.", author: "Provérbio Chinês" },
-            { text: "Você é o único responsável pelo seu sucesso.", author: "Nível Up Brasil" }
+            { text: "Você é o único responsável pelo seu sucesso.", author: "Nível Up Brasil" },
+            { text: "Disciplina é a ponte entre metas e realizações.", author: "Jim Rohn" },
+            { text: "Acredite que você pode e você já está no meio do caminho.", author: "Theodore Roosevelt" }
         ];
 
         function newQuote() {
@@ -545,23 +843,25 @@
         // Reflex Game
         let reflexTimeout;
         let reflexStartTime;
-        let reflexState = 'waiting'; // waiting, ready, clicked
+        let reflexState = 'waiting';
+        let reflexRecord = localStorage.getItem('reflexRecord') || '--';
+
+        document.getElementById('reflex-record').textContent = reflexRecord;
 
         function playReflexGame() {
             const game = document.getElementById('reflex-game');
             const text = document.getElementById('reflex-text');
             const result = document.getElementById('reflex-result');
+            const timeDisplay = document.getElementById('reflex-time');
 
             if (reflexState === 'waiting') {
                 reflexState = 'ready';
                 text.textContent = 'Espere o VERDE...';
-                game.classList.remove('bg-green-600');
-                game.classList.add('bg-red-600');
+                game.className = 'h-32 bg-red-600 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 relative overflow-hidden select-none';
                 
                 const delay = Math.random() * 3000 + 2000;
                 reflexTimeout = setTimeout(() => {
-                    game.classList.remove('bg-red-600');
-                    game.classList.add('bg-green-600');
+                    game.className = 'h-32 bg-green-500 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 relative overflow-hidden select-none';
                     text.textContent = 'CLIQUE AGORA!';
                     reflexStartTime = Date.now();
                     reflexState = 'clicked';
@@ -569,46 +869,421 @@
             } else if (reflexState === 'ready') {
                 clearTimeout(reflexTimeout);
                 text.textContent = 'Muito cedo! Clique para tentar novamente';
-                game.classList.remove('bg-red-600');
-                game.classList.add('bg-gray-800');
+                game.className = 'h-32 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 relative overflow-hidden select-none';
                 reflexState = 'waiting';
             } else if (reflexState === 'clicked') {
                 const reactionTime = Date.now() - reflexStartTime;
-                result.innerHTML = `<div class="text-center"><div class="text-3xl font-bold text-white mb-2">${reactionTime}ms</div><div class="text-sm text-gray-300">Clique para jogar novamente</div></div>`;
+                timeDisplay.textContent = reactionTime + 'ms';
+                
+                if (reflexRecord === '--' || reactionTime < parseInt(reflexRecord)) {
+                    reflexRecord = reactionTime;
+                    localStorage.setItem('reflexRecord', reflexRecord);
+                    document.getElementById('reflex-record').textContent = reflexRecord;
+                    timeDisplay.innerHTML = reactionTime + 'ms <span class="text-yellow-500 text-lg ml-2">🏆 NOVO RECORDE!</span>';
+                }
+                
                 result.classList.remove('hidden');
+                reflexState = 'waiting';
+                
                 setTimeout(() => {
                     result.classList.add('hidden');
-                    game.classList.remove('bg-green-600');
-                    game.classList.add('bg-gray-800');
+                    game.className = 'h-32 bg-gray-800 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-200 relative overflow-hidden select-none';
                     text.textContent = 'Clique quando ficar VERDE';
-                    reflexState = 'waiting';
-                }, 2000);
+                }, 3000);
             }
         }
 
-        // Memory Game
-        function playMemoryGame() {
-            const sequence = [];
-            const userSequence = [];
-            const colors = ['red', 'blue', 'green', 'yellow'];
-            
-            alert('Jogo da Memória: Observe a sequência e repita!\n(Em uma versão completa, teríamos uma interface interativa com animações)');
+        // Quiz System
+        const quizQuestions = [
+            {
+                question: "O que é a Regra dos 72?",
+                options: ["Dividir 72 pela taxa de juros para saber quando o dinheiro dobra", "Multiplicar 72 pelo investimento inicial", "Subtrair 72 da idade para aposentadoria"],
+                correct: 0
+            },
+            {
+                question: "Qual é a melhor definição de renda passiva?",
+                options: ["Dinheiro que trabalha por você", "Salário mensal fixo", "Herança recebida"],
+                correct: 0
+            },
+            {
+                question: "O que significa 'Pay Yourself First'?",
+                options: ["Guardar dinheiro antes de pagar contas", "Pagar as dívidas primeiro", "Investir apenas sobras"],
+                correct: 0
+            },
+            {
+                question: "Qual taxa de juros compostos dobra seu dinheiro em 6 anos?",
+                options: ["12% ao ano", "6% ao ano", "24% ao ano"],
+                correct: 0
+            },
+            {
+                question: "O que é mais importante para independência financeira?",
+                options: ["Taxa de economia", "Salário alto", "Herança"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let quizScore = 0;
+
+        function startQuiz() {
+            currentQuestion = 0;
+            quizScore = 0;
+            document.getElementById('quiz-start').classList.add('hidden');
+            document.getElementById('quiz-game').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            showQuestion();
         }
 
-        // Quiz Game
-        function startQuiz() {
-            const questions = [
-                { q: "Qual é a regra dos 72?", a: ["Dividir 72 pela taxa de juros", "Multiplicar 72 pelo investimento", "Subtrair 72 do capital"], correct: 0 },
-                { q: "O que é renda passiva?", a: ["Dinheiro que trabalha por você", "Salário mensal", "Herança recebida"], correct: 0 }
+        function showQuestion() {
+            const q = quizQuestions[currentQuestion];
+            document.getElementById('quiz-progress').textContent = `Pergunta ${currentQuestion + 1}/5`;
+            document.getElementById('quiz-score').textContent = `Pontos: ${quizScore}`;
+            document.getElementById('quiz-question').textContent = q.question;
+            
+            const optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option p-4 rounded-lg border border-gray-700 bg-gray-800/50';
+                btn.textContent = opt;
+                btn.onclick = () => answerQuiz(idx);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function answerQuiz(answer) {
+            const q = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options[answer].classList.add(answer === q.correct ? 'correct' : 'wrong');
+            if (answer === q.correct) quizScore++;
+            if (q.correct !== answer) options[q.correct].classList.add('correct');
+            
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizQuestions.length) {
+                    showQuestion();
+                } else {
+                    showQuizResult();
+                }
+            }, 1500);
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-game').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('final-score').textContent = quizScore;
+            
+            const messages = [
+                "Você está começando. Estude mais!",
+                "Bom progresso! Continue aprendendo.",
+                "Muito bem! Você entende os conceitos básicos.",
+                "Excelente! Você está no caminho certo.",
+                "Incrível! Você é um expert em finanças!"
+            ];
+            document.getElementById('quiz-message').textContent = messages[quizScore];
+            document.getElementById('quiz-emoji').textContent = quizScore >= 4 ? '🏆' : quizScore >= 3 ? '👏' : '💪';
+            
+            addXP(quizScore * 50);
+        }
+
+        function restartQuiz() {
+            startQuiz();
+        }
+
+        // Memory Game
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let memoryMoves = 0;
+
+        function startMemoryGame() {
+            document.getElementById('memory-game-container').classList.remove('hidden');
+            const grid = document.getElementById('memory-grid');
+            grid.innerHTML = '';
+            
+            const emojis = ['🚀', '💰', '📈', '🎯', '⚡', '🔥', '💎', '🏆'];
+            const cards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+            
+            memoryCards = cards;
+            flippedCards = [];
+            matchedPairs = 0;
+            memoryMoves = 0;
+            document.getElementById('memory-moves').textContent = 'Movimentos: 0';
+            
+            cards.forEach((emoji, idx) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = idx;
+                card.dataset.emoji = emoji;
+                card.textContent = '?';
+                card.onclick = () => flipCard(card);
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (flippedCards.length >=
+        function flipCard(card) {
+            if (flippedCards.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            
+            card.classList.add('flipped');
+            card.textContent = card.dataset.emoji;
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                memoryMoves++;
+                document.getElementById('memory-moves').textContent = `Movimentos: ${memoryMoves}`;
+                
+                if (flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji) {
+                    flippedCards.forEach(c => {
+                        c.classList.remove('flipped');
+                        c.classList.add('matched');
+                    });
+                    matchedPairs++;
+                    flippedCards = [];
+                    
+                    if (matchedPairs === 8) {
+                        setTimeout(() => {
+                            alert(`Parabéns! Você completou em ${memoryMoves} movimentos!`);
+                            addXP(100);
+                            closeMemoryGame();
+                        }, 500);
+                    }
+                } else {
+                    setTimeout(() => {
+                        flippedCards.forEach(c => {
+                            c.classList.remove('flipped');
+                            c.textContent = '?';
+                        });
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        function closeMemoryGame() {
+            document.getElementById('memory-game-container').classList.add('hidden');
+        }
+
+        // Typing Game
+        let typingTarget = '';
+        let typingStartTime = null;
+        let typingInterval = null;
+
+        function startTypingGame() {
+            document.getElementById('typing-game-container').classList.remove('hidden');
+            const words = ['NÍVEL UP', 'LIBERDADE', 'SUCESSO', 'PROSPERIDADE', 'DISCIPLINA', 'FOCO'];
+            typingTarget = words[Math.floor(Math.random() * words.length)];
+            document.getElementById('typing-display').textContent = typingTarget;
+            document.getElementById('typing-input').value = '';
+            document.getElementById('typing-input').focus();
+            typingStartTime = null;
+            document.getElementById('typing-time').textContent = '0';
+            document.getElementById('typing-wpm').textContent = '0';
+            
+            if (typingInterval) clearInterval(typingInterval);
+            typingInterval = setInterval(() => {
+                if (typingStartTime) {
+                    const elapsed = Math.floor((Date.now() - typingStartTime) / 1000);
+                    document.getElementById('typing-time').textContent = elapsed;
+                }
+            }, 1000);
+        }
+
+        function checkTyping() {
+            const input = document.getElementById('typing-input');
+            const display = document.getElementById('typing-display');
+            
+            if (!typingStartTime && input.value.length > 0) {
+                typingStartTime = Date.now();
+            }
+            
+            let html = '';
+            for (let i = 0; i < typingTarget.length; i++) {
+                if (i < input.value.length) {
+                    if (input.value[i] === typingTarget[i]) {
+                        html += `<span class="typing-correct">${typingTarget[i]}</span>`;
+                    } else {
+                        html += `<span class="typing-wrong">${typingTarget[i]}</span>`;
+                    }
+                } else {
+                    html += typingTarget[i];
+                }
+            }
+            display.innerHTML = html;
+            
+            const elapsed = (Date.now() - typingStartTime) / 60000;
+            const wpm = elapsed > 0 ? Math.floor((input.value.length / 5) / elapsed) : 0;
+            document.getElementById('typing-wpm').textContent = wpm;
+            
+            if (input.value === typingTarget) {
+                clearInterval(typingInterval);
+                setTimeout(() => {
+                    alert(`Excelente! ${wpm} WPM!`);
+                    addXP(75);
+                    closeTypingGame();
+                }, 300);
+            }
+        }
+
+        function closeTypingGame() {
+            document.getElementById('typing-game-container').classList.add('hidden');
+            if (typingInterval) clearInterval(typingInterval);
+        }
+
+        // Color Game
+        function startColorGame() {
+            const colors = [
+                { name: 'VERMELHO', color: '#ef4444' },
+                { name: 'AZUL', color: '#3b82f6' },
+                { name: 'VERDE', color: '#22c55e' },
+                { name: 'AMARELO', color: '#eab308' },
+                { name: 'ROXO', color: '#a855f7' }
             ];
             
             let score = 0;
-            questions.forEach((question, idx) => {
-                const answer = prompt(`${idx + 1}. ${question.q}\n\n1. ${question.a[0]}\n2. ${question.a[1]}\n3. ${question.a[2]}\n\n(Responda com o número)`);
-                if (parseInt(answer) - 1 === question.correct) score++;
-            });
+            let timeLeft = 30;
             
-            alert(`Quiz finalizado!\nVocê acertou ${score} de ${questions.length} questões!`);
+            const gameHtml = `
+                <div id="color-game-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+                    <div class="bg-gray-900 p-8 rounded-2xl border border-yellow-500/30 max-w-md w-full mx-4">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold">Jogo das Cores</h3>
+                            <button onclick="closeColorGame()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                        </div>
+                        <div class="text-center mb-6">
+                            <div class="text-4xl font-bold mb-2" id="color-score">0</div>
+                            <div class="text-gray-400">Tempo: <span id="color-timer">30</span>s</div>
+                        </div>
+                        <div id="color-display" class="h-32 rounded-lg flex items-center justify-center text-3xl font-bold mb-6 transition-colors"></div>
+                        <div class="grid grid-cols-2 gap-3" id="color-buttons"></div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', gameHtml);
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('color-timer').textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert(`Tempo esgotado! Pontuação: ${score}`);
+                    addXP(score * 5);
+                    closeColorGame();
+                }
+            }, 1000);
+            
+            function nextRound() {
+                const target = colors[Math.floor(Math.random() * colors.length)];
+                const textColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const display = document.getElementById('color-display');
+                display.textContent = target.name;
+                display.style.color = textColor.color;
+                display.style.backgroundColor = textColor.color + '20';
+                
+                const buttonsDiv = document.getElementById('color-buttons');
+                buttonsDiv.innerHTML = '';
+                
+                colors.forEach(c => {
+                    const btn = document.createElement('button');
+                    btn.className = 'py-3 rounded-lg font-bold transition-transform hover:scale-105';
+                    btn.style.backgroundColor = c.color;
+                    btn.textContent = c.name;
+                    btn.onclick = () => {
+                        if (c.name === target.name) {
+                            score++;
+                            document.getElementById('color-score').textContent = score;
+                            nextRound();
+                        } else {
+                            btn.style.opacity = '0.3';
+                        }
+                    };
+                    buttonsDiv.appendChild(btn);
+                });
+            }
+            
+            nextRound();
+            window.colorGameTimer = timer;
+        }
+
+        function closeColorGame() {
+            const modal = document.getElementById('color-game-modal');
+            if (modal) modal.remove();
+            if (window.colorGameTimer) clearInterval(window.colorGameTimer);
+        }
+
+        // XP System
+        let userXP = parseInt(localStorage.getItem('userXP')) || 750;
+        let userLevel = parseInt(localStorage.getItem('userLevel')) || 5;
+
+        function addXP(amount) {
+            userXP += amount;
+            const needed = userLevel * 200;
+            
+            if (userXP >= needed) {
+                userLevel++;
+                userXP -= needed;
+                alert(`🎉 LEVEL UP! Você alcançou o Nível ${userLevel}!`);
+            }
+            
+            localStorage.setItem('userXP', userXP);
+            localStorage.setItem('userLevel', userLevel);
+            updateLevelDisplay();
+        }
+
+        function updateLevelDisplay() {
+            document.getElementById('user-level').textContent = userLevel;
+            const needed = userLevel * 200;
+            const progress = (userXP / needed) * 100;
+            document.getElementById('level-progress').style.width = progress + '%';
+            document.getElementById('xp-text').textContent = `${userXP}/${needed} XP`;
+            
+            const challenges = ['Memória Avançada', 'Quiz Expert', 'Reflexo Extremo', 'Digitação Veloz', 'Mestre das Cores'];
+            document.getElementById('next-challenge').textContent = challenges[(userLevel - 1) % challenges.length];
+        }
+
+        updateLevelDisplay();
+
+        // Trends
+        const trendData = {
+            crypto: {
+                category: 'Finanças',
+                title: 'Bitcoin bate novo recorde em 2026',
+                content: 'O Bitcoin atingiu valores históricos neste ano, impulsionado pela adoção institucional crescente e pela aprovação de novos ETFs. Especialistas apontam que a tendência de alta deve continuar à medida que mais empresas adicionam criptomoedas aos seus balanços patrimoniais. A tecnologia blockchain também está revolucionando setores além das finanças, como cadeia de suprimentos e identidade digital.'
+            },
+            ai: {
+                category: 'Tecnologia',
+                title: 'IA Generativa revoluciona o marketing',
+                content: 'As ferramentas de inteligência artificial estão transformando a forma como empresas criam conteúdo e interagem com clientes. De chatbots avançados a geração automática de imagens e vídeos, a IA permite que pequenos empreendedores compitam com grandes corporações em escala global. O segredo está em saber integrar estas ferramentas de forma estratégica no seu negócio.'
+            },
+            business: {
+                category: 'Negócios',
+                title: 'Marketing Digital: Novas estratégias',
+                content: 'O cenário do marketing digital está em constante evolução. As redes sociais estão priorizando conteúdo autêntico e engajamento genuíno sobre métricas superficiais. Vídeos curtos, marketing de influência micro e comunidades exclusivas são as tendências que estão gerando os melhores resultados de conversão em 2026.'
+            }
+        };
+
+        function openTrend(id) {
+            const trend = trendData[id];
+            document.getElementById('trend-category').textContent = trend.category;
+            document.getElementById('trend-title').textContent = trend.title;
+            document.getElementById('trend-content').textContent = trend.content;
+            openModal('trend-modal');
+        }
+
+        function showAllTrends() {
+            alert('Mais tendências em breve! Continue acompanhando o Nível Up Brasil.');
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(event.target.id);
+            }
         }
     </script>
 </body>
